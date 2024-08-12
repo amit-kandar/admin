@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const logger = require('../config/logger');
 
-class APIError extends Error {
+class error extends Error {
     constructor(statusCode, message = "Something went wrong", errors = [], data = null) {
         super(message);
         this.statusCode = statusCode;
@@ -32,4 +32,4 @@ class APIError extends Error {
     }
 }
 
-module.exports = APIError;
+module.exports = error;
