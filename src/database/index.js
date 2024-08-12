@@ -23,17 +23,7 @@ async function connectToDatabase() {
     }
 }
 
-// export const AboutModel = require('../models/About.model.js')(sequelize);
-
-// const models = {
-//     About: AboutModel,
-//     SocialMedia: SocialMediaModel,
-//     PagePath: PagePathModel,
-//     Footer: FooterModel,
-//     Course: CourseModel,
-//     Price: PriceModel,
-//     PriceFeaturesList: PriceFeaturesList
-// };
+const LoginModel = require('../models/Login.model.js')(sequelize);
 
 // Define associations
 // models.Footer.hasMany(models.SocialMedia, { as: 'social_media' });
@@ -51,4 +41,4 @@ async function synchronizeDatabase() {
     }
 }
 
-module.exports = { sequelize, connectToDatabase, synchronizeDatabase };
+module.exports = { sequelize, connectToDatabase, synchronizeDatabase, LoginModel };
