@@ -23,7 +23,7 @@ async function connectToDatabase() {
     }
 }
 
-const LoginModel = require('../models/Login.model.js')(sequelize);
+const Login = require('../models/Login.model.js')(sequelize);
 
 // Define associations
 // models.Footer.hasMany(models.SocialMedia, { as: 'social_media' });
@@ -41,4 +41,4 @@ async function synchronizeDatabase() {
     }
 }
 
-module.exports = { sequelize, connectToDatabase, synchronizeDatabase, LoginModel };
+module.exports = { sequelize, connectToDatabase, synchronizeDatabase, Login };
