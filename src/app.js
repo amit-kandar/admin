@@ -21,9 +21,10 @@ app.use(cookieParser());
 
 // import all routes here
 const authRoute = require('./routes/auth.route');
-
+const employeeRoute = require('./routes/employee.route');
 
 app.use('/api/v1/auth', authRoute);
+app.use('/api/v1/employee', employeeRoute);
 
 app.use(errorHandler);
 
