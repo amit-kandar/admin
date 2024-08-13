@@ -1,5 +1,5 @@
 const logger = require('../config/logger');
-const error = require('../utils/error');
+const APIError = require('../utils/APIError');
 
 const errorHandler = function (err, req, res, next) {
     let statusCode = 500;
@@ -7,7 +7,7 @@ const errorHandler = function (err, req, res, next) {
     let errors = [];
     let data = null;
 
-    if (err instanceof error) {
+    if (err instanceof APIError) {
         statusCode = err.statusCode;
         message = err.message;
         errors = err.errors;
