@@ -11,15 +11,19 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(express.json({ limit: "16kb" })); // need to know what is for
+app.use(express.json({ limit: DATA_LIMIT }));
 
-app.use(express.urlencoded({ extended: true, limit: DATA_LIMIT })); // this is also need to know what's for
+app.use(express.urlencoded({ extended: true, limit: DATA_LIMIT }));
 
 app.use(express.static("public"));
 
 app.use(cookieParser());
 
 // import all routes here
+const authRoute = require('./routes/auth.route');
+
+
+app.use('/api/v1/auth', authRoute);
 
 app.use(errorHandler);
 
