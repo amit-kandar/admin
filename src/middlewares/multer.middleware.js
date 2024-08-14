@@ -6,10 +6,9 @@ const storage = multer.diskStorage({
         cb(null, './public/temp');
     },
     filename: function (req, file, cb) {
-        const userProvidedName = req.body.name || req.body.title;
-        const randomSixDigits = Math.floor(100000 + Math.random() * 900000);
+        const randomTwelveDigits = Math.floor(100000000000 + Math.random() * 900000000000);
         const ext = path.extname(file.originalname).toLowerCase();
-        const fileName = `${userProvidedName}_${randomSixDigits}${ext}`;
+        const fileName = `${randomTwelveDigits}${ext}`;
         cb(null, fileName);
     }
 });
