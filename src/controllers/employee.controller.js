@@ -172,7 +172,6 @@ const getAllEmployee = async (req, res, next) => {
         const searchCondition = {
             [Op.or]: [
                 { f_name: { [Op.like]: `%${search}%` } },
-                { f_id: { [Op.like]: `%${search}%` } },
                 { f_mobile: { [Op.like]: `%${search}%` } },
                 { f_course: { [Op.like]: `%${search}%` } },
                 { f_designation: { [Op.like]: `%${search}%` } },
