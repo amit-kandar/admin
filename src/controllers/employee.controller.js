@@ -4,6 +4,7 @@ const APIError = require('../utils/APIError');
 const APIResponse = require('../utils/APIResponse');
 const { uploadToCloudinary } = require('../utils/cloudinary');
 const cloudinary = require('cloudinary').v2;
+const { Op } = require('sequelize');
 
 // create employee
 const createEmployee = async (req, res, next) => {
@@ -161,13 +162,30 @@ const deleteEmployee = async (req, res, next) => {
 const getAllEmployee = async (req, res, next) => {
     try {
         // Get pagination parameters from the query string, with default values
-        const { page = 1, limit = 10 } = req.query;
+        const { page = 1, limit = 10, search = '', sortField = 'f_id', sortDirection = 'asc' } = req.query;
         const offset = (page - 1) * limit;
 
-        // Get paginated employees
+        // Build the sort condition
+        const order = [[sortField, sortDirection]];
+
+        // Define the search condition (filtering by name or email in this case)
+        const searchCondition = {
+            [Op.or]: [
+                { f_name: { [Op.like]: `%${search}%` } },
+                { f_id: { [Op.like]: `%${search}%` } },
+                { f_mobile: { [Op.like]: `%${search}%` } },
+                { f_course: { [Op.like]: `%${search}%` } },
+                { f_designation: { [Op.like]: `%${search}%` } },
+                { f_email: { [Op.like]: `%${search}%` } }
+            ]
+        };
+
+        // Get paginated employees with search and sort
         const { count, rows: employees } = await Employee.findAndCountAll({
+            where: search ? searchCondition : {},
             offset: parseInt(offset),
             limit: parseInt(limit),
+            order,  // Apply sorting
         });
 
         // Check if there is any failure
@@ -186,7 +204,6 @@ const getAllEmployee = async (req, res, next) => {
         next(error);
     }
 };
-
 
 // active employee
 // deactive employee
