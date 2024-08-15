@@ -61,12 +61,12 @@ const editEmployee = async (req, res, next) => {
     try {
         // check data is exists or not
         const f_id = req.params.f_id;
+
         const employee = await Employee.findOne({ where: { f_id: f_id } });
         if (!employee) {
             throw new APIError(400, "Employee does not exists for update.")
         }
 
-        console.log(req.file.path);
         // get data
         const { f_name, f_email, f_mobile, f_designation, f_gender, f_course } = req.body;
 
@@ -93,8 +93,10 @@ const editEmployee = async (req, res, next) => {
         });
 
         // Upload image if present
-        if (req.file.path) {
+        if (req.file && req.file.path) {
             const f_image = req.file.path;
+            console.log(f_image);
+
             const f_image_upload = await uploadToCloudinary(f_image, "employee");
 
             // check successfull upload
@@ -139,7 +141,7 @@ const deleteEmployee = async (req, res, next) => {
         const f_id = req.params.f_id;
 
         // check employee exists or not
-        const employee = await Employee.findOne({ where: { f_id } });
+        const employee = await Employee.findOne({ where: { f_id: f_id } });
         if (!employee) {
             throw new APIError(400, "Employee does not exists for delete");
         }
